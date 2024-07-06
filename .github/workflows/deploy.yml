@@ -26,10 +26,6 @@ jobs:
           github_token: ${{ secrets.GTOKEN }}
           publish_dir: .
 
-      - name: Get Deployment URL
-        run: echo "::set-output name=url::$(cat $GITHUB_WORKSPACE/.deploy_url)"
-        id: get_url
-
   dast:
     runs-on: ubuntu-latest
     needs: deploy  # Wait for deployment job to complete
@@ -37,4 +33,4 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
-          target: ${{ steps.deploy.outputs.url }}  # Use the dynamically fetched URL from deploy job
+          target: 'https://okon-emma.github.io/csn-app/'  # Use the dynamically fetched URL from deploy job
