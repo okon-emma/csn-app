@@ -14,14 +14,19 @@ jobs:
 
   deploy:
     needs: build
-
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Debug GitHub Token
+        run: echo "Token: ${{ secrets.GTOKEN }}"
+
+      - name: List Files in Directory
+        run: ls -l
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GTOKEN }}
           publish_dir: .
