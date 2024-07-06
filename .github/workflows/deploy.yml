@@ -32,12 +32,10 @@ jobs:
     steps:
       - name: OWASP ZAP Scan
         run: |
-          docker pull zaproxy/zap-stable
           docker run --rm \
             -v $(pwd):/zap/wrk:rw \
             zaproxy/zap-stable zap-baseline.py \
             -t 'https://okon-emma.github.io/csn-app/' \
-            -g gen.conf \
             -r zap_report.html
 
       # - name: ZAP Scan
