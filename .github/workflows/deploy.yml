@@ -12,35 +12,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Perform build steps if applicable
-
-      # Upload artifact
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: github-pages  # Name of the artifact
-          path: ./dist  # Replace with the directory containing your built files
-
   deploy:
     needs: build
+
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      pages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Download artifact
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: github-pages  # Name of the artifact to download
-          path: ./download  # Directory where artifacts should be downloaded
-
-      # Deploy to GitHub Pages using downloaded artifact
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./download  # Use the downloaded artifact directory for deployment
+          publish_dir: .
